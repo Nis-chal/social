@@ -1,0 +1,74 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/following.css' %}">
+{% endblock %}
+{% block main_content %}
+<div class=" following-content">
+    {% for following in followings %}
+    <div class="user-info-pic d-flex justify-content-between  m-auto mt-2">
+
+        <div class="d-flex w-50 justify-content-between align-items-center">
+            <img class="small-pic rounded-circle " src=" {{following.profile.profile_pic.url}}" alt="">
+            <h4 class="">{{following.profile.name}}</h4>
+        </div>
+        {% if request.user == profile.user %}
+        <form action="/profile/toggle_following/{{following.profile.id}}" method="POST">
+            {% csrf_token %}
+
+            <button class="btn btn-primary unfollow " data-new="{{following.profile.id}}"></button>
+        </form>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+
+</div>
+
+<script>
+    var unfollow = document.querySelectorAll('.unfollow')
+
+
+    unfollow.forEach((item, index, arr) => {
+        unfollow[index].innerHTML = 'unfollow'
+
+
+
+        arr[index].addEventListener('click', (e) => {
+            let target = e.target
+            event.preventDefault();
+            var follower_id = target.getAttribute('data-new')
+            if (unfollow[index].innerHTML === 'unfollow') {
+                unfollow[index].innerHTML = 'follow'
+            } else {
+                unfollow[index].innerHTML = 'unfollow'
+
+            }
+
+
+            console.log(item)
+            $.ajax({
+                type: "POST",
+                url: "/profile/toggle_following/" + follower_id,
+
+                enctype: 'multipart/form-data',
+                data: {
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+
+                success: function (data) {
+
+
+                    console.log(data)
+
+
+                }
+            })
+
+
+
+
+        })
+    })
+</script>
+{% endblock %}

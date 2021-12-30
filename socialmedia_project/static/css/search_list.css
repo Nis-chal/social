@@ -1,0 +1,22 @@
+.searched-info {
+    margin: 10px auto;
+    width: min(80%, 600px);
+    display: flex;
+    background-color: var(--content-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 5px;
+    gap: 100px;
+    padding: 15px 0px;
+    padding-left: 15px;
+
+}
+
+.searched-info a>img {
+    width: 50px;
+    border-radius: 50%;
+
+}
+
+.searched-info h3 {
+    color: var(--theme-color);
+}

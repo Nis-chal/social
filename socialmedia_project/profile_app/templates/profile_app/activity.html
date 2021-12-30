@@ -1,0 +1,90 @@
+{% extends 'navigation.html' %}
+{% block link %}
+<title>Activity</title>
+<style>
+    .card {
+        height: 400px;
+        overflow: scroll;
+        background-color: var(--theme-bg-color);
+    }
+
+    h1 {
+        color: var(--theme-color);
+    }
+
+    .you {
+        color: var(--theme-color);
+    }
+</style>
+{% endblock %}
+
+{% block main_content %}
+<h1 class="text-center">Activity Log</h1>
+<div class="container-fluid d-flex flex-column flex-md-row gap-2 ">
+    <!-- ===============================================liked-list========================================== -->
+    <div class="card  w-100 w-md-50  d-flex flex-column gap-1 rounded-5">
+        {% for like in post %}
+        <div class="d-flex align-items-center gap-5 justify-content-center ps-3 ">
+            <li class="you pe-4">you liked on </li>
+
+
+            {% if like.post_image %}
+            {% if like.extension == '.jpg' or like.extension == '.jpeg' or like.extension == '.png'   %}
+            <div class="post-content-post "><a href="/post/post_detail/{{like.id}}"><img src="{{ like.post_image.url }}"
+                        alt="" width="100"></a>
+            </div>
+            {% elif like.extension == '.mp4' or like.extension == '.ts' %}
+            <div class="d-flex justify-content-center">
+
+                <video class="m-auto bg-black videos" width="100" height='110'>
+                    <source src="{{ like.post_image.url }}" type="video/mp4">
+                </video>
+
+            </div>
+            {% else %}
+            <a href="{{ like.post_image.url }}" download class="text-dark">
+                <h5>{{ like.post_image }}</h5>
+            </a>
+            {% endif %}
+            {% endif %}
+
+        </div>
+
+
+        {% endfor %}
+    </div>
+    <!-- ===============================================commented-list========================================== -->
+
+    <div class="card  w-100 w-md-50 d-flex flex-column gap-1">
+        {% for comment in comment %}
+        <div class="d-flex align-items-center gap-md-2 justify-content-center ps-3">
+
+            <li class="you">you commented on</li>
+
+
+            {% if comment.post.post_image %}
+            {% if comment.post.extension == '.jpg' or comment.post.extension == '.jpeg' or comment.post.extension == '.png'   %}
+            <div class="post-content-post "><a href="/post/post_detail/{{comment.post.id}}"><img
+                        src="{{ comment.post.post_image.url }}" alt="" width="100"></a>
+            </div>
+            {% elif comment.post.extension == '.mp4' or comment.post.extension == '.ts' %}
+            <div class="d-flex justify-content-center">
+
+                <video class="m-auto bg-black videos" width="100" height='110'>
+                    <source src="{{ comment.post.post_image.url }}" type="video/mp4">
+                </video>
+
+            </div>
+            {% else %}
+            <a href="{{ comment.post.post_image.url }}" download class="text-dark">
+                <h5>{{ comment.post.post_image }}</h5>
+            </a>
+            {% endif %}
+            {% endif %}
+
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

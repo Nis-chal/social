@@ -1,0 +1,83 @@
+</nav>
+{% extends 'admins_app/admin_layout.html' %}
+{% load bootstrap %}
+{% load static %}
+{% block title %}
+<title>All Posts</title>
+<style>
+    .form-group label.control-label {
+        width: 100%;
+    }
+</style>
+{% endblock%}
+
+{% block main_content %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-10 offset-md-1">
+            <h1 class="text-center">All Post</h1>
+
+            <div class="card p-2">
+                {% include 'message.html' %}
+                <form action="/admins/show_post" method="GET" class="search_form ">
+                    <span class="rounded-2  ps-3 pe-3 pt-2 pb-2  ">
+                        <input class="border-0 search_form_input " type="text" placeholder="Search" name="q">
+                        <button class="border-0 bg-transparent" type="submit"><i class="fas fa-search"></i></button>
+                    </span>
+                </form>
+
+
+                <table class="table-striped">
+                    <tr>
+                        <th>profile_pic</th>
+                        <th>Username</th>
+                        <th>File</th>
+                        <th>description</th>
+
+                        <th>Action</th>
+
+
+                    </tr>
+                    {% for i in post_list %}
+                    <tr>
+                        {% if i.author.profile.profile_pic.url %}
+                        <td> <img src="{{ i.author.profile.profile_pic.url }}" width="55" class="rounded-circle" alt="">
+                        </td>
+                        {% else %}
+                        <td><img src="{% static 'img/user_suit.jpg' %}" alt="" class="rounded-circle" width="55"></td>
+                        {% endif %}
+                        <td class="text-dark"> {{ i.author.username }}</td>
+
+                        {% if i.post_image %}
+                        {% if i.extension == '.jpg' or i.extension == '.jpeg' or i.extension == '.png'   %}
+                        <td><img src="{{ i.post_image.url }}" alt="" width="100"> </td>
+                        {% elif i.extension == '.mp4' or i.extension == '.ts' %}
+                        <td>
+
+                            <video class="m-auto bg-black videos " width="100" height="110">
+                                <source src="{{ i.post_image.url }}" type="video/mp4">
+                            </video>
+
+                        </td>
+                        {% else %}
+                        <td> <a href="{{ i.post_image.url }}" class="text-dark">
+                                <h5>{{ i.post.post_image }}</h5>
+                            </a></td>
+
+                        {% endif %}
+                        {% endif %}
+                        <td>{{i.description }}</td>
+
+                        <td><a class="btn btn-primary btn-sm" href="/admins/delete_post/{{i.id}}">Delete</a> &nbsp;
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}

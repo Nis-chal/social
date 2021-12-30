@@ -1,0 +1,37 @@
+{% load static %}
+<link rel="icon" href="{% static 'img/logo-4-removebg-preview.png' %}">
+<div class="collapse-menu display-block">
+
+
+    <div class="offcanvas offcanvas-start " tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            {% if request.user.profile.profile_pic.url %}
+            <span class="m-auto"> <img src="{{ request.user.profile.profile_pic.url }}" width="60"
+                    class="rounded-circle" alt="">
+            </span>
+            {% else %}
+            <span class=" m-auto"><img src="{% static 'img/user_suit.jpg' %}" alt="" class="rounded-circle"
+                    width="55"></span>
+            {% endif %}
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+
+            <ul class="list-unstyled">
+                <li class="text-center">Welcome {{request.user}}</li>
+                <li><a class="dropdown-item" href="/admins/admins">Admin Dashboard</a></li>
+                <li><a class="dropdown-item" href="/admins/show_user">Users</a></li>
+                <li><a class="dropdown-item" href="/admins/show_admin">Admins</a></li>
+                <li><a class="dropdown-item" href="/admins/show_profile">Profile</a></li>
+                <li><a class="dropdown-item" href="/admins/show_post">Post</a></li>
+                <li><a class="dropdown-item" href="/admins/show_comment">comment</a></li>
+
+                <li><a class="dropdown-item" href="/admins/admins">Settings</a></li>
+                <li><a class="dropdown-item" href="/admins/change_password">Change Password</a></li>
+
+                <li><a class="dropdown-item" href="/account/logout">Logout</a></li>
+            </ul>
+
+        </div>
+    </div>
+</div>

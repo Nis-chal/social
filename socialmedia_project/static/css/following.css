@@ -1,0 +1,24 @@
+.small-pic {
+    width: 55px;
+    height: 55px;
+}
+
+.user-info-pic {
+    width: 100%;
+
+}
+.disappear {
+
+    width: 0 !important;
+    display: none !important;
+    background-color: red;
+
+}
+
+@media screen and (min-width:700px) {
+    .user-info-pic {
+        width: 75%;
+
+    }
+
+}

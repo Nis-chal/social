@@ -1,0 +1,160 @@
+{% extends 'admins_app/admin_layout.html' %}
+{% load static %}
+{% block title %}
+<title>Admin Homepage</title>
+{% endblock %}
+{% block main_content %}
+<style>
+    .card-body a {
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .card-body a:hover {
+        color: orange;
+    }
+
+    .new_user {
+        overflow: hidden;
+    }
+</style>
+<div class="container ">
+    <h1>Admin Dashboard</h1>
+
+
+    <div class="d-flex flex-column flex-md-row gap-2">
+        <div class="col ">
+            <div class="card text-white  mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center text-dark">Welcome to Admin</div>
+                <div class="card-body big-box text-center">
+                    <img src="{% static 'img/at_work.gif' %}" width="250" alt="none">
+                    <p class="text-center text-dark ">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Error,
+                        voluptatibus
+                        doloremque.</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card text-white  mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center text-dark">New Users</div>
+                <div class="card-body big-box">
+                    <ul class="new_user">
+                        {% for p in profile %}
+                        <ul class="d-flex align-items-center gap-4 list-unstyled mb-1">
+                            <li><img src="{{p.profile_pic.url}}" width="55px" alt=""></li>
+                            <li class="text-dark text-decoration-none ">{{p.user}}</li>
+                        </ul>
+
+
+
+
+
+
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card text-white  mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center text-dark">Recent Admins</div>
+                <div class="card-body big-box">
+                    <ul class="new_user">
+                        {% for p in admins %}
+                        <ul class="d-flex align-items-center">
+                            <li><img src="{{p.profile_pic.url}}" width="55px" alt=""></li>
+                            <li class="text-dark text-decoration-none ">{{p.username}}</li>
+                        </ul>
+
+
+
+
+
+
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="d-flex flex-column flex-md-row gap-2">
+        <div class="col">
+            <div class="card text-white bg-primary mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center">Total Profile</div>
+                <div class="card-body">
+                    <a href="/admins/show_profile">
+                        <h1 class="card-title text-center">{{profile_count}}</h1>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center">Total Post</div>
+                <div class="card-body">
+                    <a href="/admins/show_post">
+                        <h1 class="card-title text-center">{{post_count}}</h1>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card text-white bg-success mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center">Total Comment</div>
+                <div class="card-body">
+                    <a href="/admins/show_comment">
+                        <h1 class="card-title text-center">{{comment_count}}</h1>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card text-white bg-danger mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center">Total Users</div>
+                <div class="card-body">
+                    <a href="/admins/show_user">
+                        <h1 class="card-title text-center">{{user_count}}</h1>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card text-white bg-info mb-3" style="max-width: 35rem;">
+                <div class="card-header text-center">Total Admins</div>
+                <div class="card-body">
+                    <a href="/admins/show_admin">
+                        <h1 class="card-title text-center">{{admin_count}}</h1>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row">
+
+
+
+    </div>
+    <div class="row">
+
+
+
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}

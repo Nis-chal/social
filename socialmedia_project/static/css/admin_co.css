@@ -1,0 +1,42 @@
+.offcanvas {
+    position: absolute;
+
+    overflow-x: hidden;
+    z-index: 4000;
+
+    height: 100vh;
+    width: 100vh;
+    box-shadow: 5px 5px 15px #d5d5d5,
+        -5px -5px 15px #ebebeb;
+
+}
+
+.white-smoke-background {
+    background: whitesmoke;
+}
+
+.big-box {
+    height: 350px;
+}
+
+.card {
+    box-shadow: 5px 5px 15px #d5d5d5,
+        -5px -5px 15px #ebebeb;
+}
+
+@media screen and (min-width:560px) {
+    .offcanvas {
+        position: relative;
+        width: 0;
+
+
+
+    }
+
+    .offcanvas.show {
+        width: 200px;
+    }
+
+
+
+}

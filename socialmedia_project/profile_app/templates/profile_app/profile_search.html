@@ -1,0 +1,27 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/search_list.css' %}">
+<title>search</title>
+{% endblock %}
+
+{% block main_content %}
+
+
+<div class="search_content d-flex flex-column">
+    {% for profile in search_list %}
+
+    <div class="searched-info d-flex pt-3 pb-3 ps-3">
+        <a href="/profile/profile_page/{{profile.id}}"><img class="rounded rounded-circle "
+                src="{{ profile.profile_pic.url }}" alt=""></a>
+        <a href="/profile/profile_page/{{profile.id}}" class="text-decoration-none ">
+            <h3 class="">{{ profile.user }}</h3>
+        </a>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

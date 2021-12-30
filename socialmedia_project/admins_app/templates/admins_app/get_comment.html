@@ -1,0 +1,94 @@
+</nav>
+{% extends 'admins_app/admin_layout.html' %}
+{% load bootstrap %}
+{% load static %}
+{% block title %}
+<title>All Comments</title>
+<style>
+    .form-group label.control-label {
+        width: 100%;
+    }
+</style>
+{% endblock%}
+
+{% block main_content %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-10 offset-md-1">
+            <h1 class="text-center">All Comments</h1>
+
+            <div class="card p-2">
+                {% include 'message.html' %}
+                <form action="/admins/show_comment" method="GET" class="search_form ">
+                    <span class="rounded-2  ps-3 pe-3 pt-2 pb-2  border ">
+                        <input class="border-0 search_form_input  " type="text" placeholder="Search" name="q">
+                        <button class="border-0 bg-transparent" type="submit"><i class="fas fa-search"></i></button>
+                    </span>
+                </form>
+                <hr>
+
+
+                <table class="table-striped">
+                    <tr class="">
+
+                        <th>Comment Author</th>
+                        <th class="d-none d-md-flex">Post File</th>
+                        <th>Post Author</th>
+                        <th>Description</th>
+
+                        <th>Action</th>
+
+
+                    </tr>
+                    {% for i in comment_list %}
+                    <tr>
+                        {% if i.author.profile.profile_pic.url %}
+                        <td class="d-none d-md-flex pt-3 gap-1 align-items-center flex-column"> <img
+                                src="{{ i.author.profile.profile_pic.url }}" width="45" class="rounded-circle"
+                                alt="">{{ i.author.username }}
+                        </td>
+                        {% else %}
+                        <td class="d-none d-md-block gap-1"><img src="{% static 'img/user_suit.jpg' %}" alt=""
+                                class="rounded-circle d-flex algin-items-center" width="55">{{ i.author.username }}</td>
+                        {% endif %}
+
+
+
+
+                        {% if i.post.post_image %}
+                        {% if i.post.extension == '.jpg' or i.post.extension == '.jpeg' or i.post.extension == '.png'   %}
+                        <td><img src="{{ i.post.post_image.url }}" alt="" width="100"> </td>
+                        {% elif i.post.extension == '.mp4' or i.post.extension == '.ts' %}
+                        <td>
+
+                            <video class="m-auto bg-black videos " width="100" height="110">
+                                <source src="{{ i.post.post_image.url }}" type="video/mp4">
+                            </video>
+
+                        </td>
+                        {% else %}
+                        <td> <a href="{{ i.post.post_image.url }}" class="text-dark">
+                                <h5>{{ i.post.post_image }}</h5>
+                            </a></td>
+
+                        {% endif %}
+                        {% endif %}
+
+                        <td>{{i.post.author}}</td>
+                        <td>{{i.comment }}</td>
+
+                        <td><a class="btn btn-primary btn-sm" href="/admins/delete_comment/{{i.id}}">Delete</a> &nbsp;
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}

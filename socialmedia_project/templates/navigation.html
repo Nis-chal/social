@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- fontawesome -->
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <!-- ====================bootstrap=================== -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <!-- external-css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="icon" href="{% static 'img/logo-4-removebg-preview.png' %}">
+    <script src="{% static 'js/boot.js' %}" defer></script>
+
+
+    {% block link %}
+    {% endblock %}
+
+
+</head>
+
+<body class="body " id="light-mode-toggle">
+    <header class="postion-relative">
+
+        <nav class="navbar container-fluid  d-flex justify-content-center nav-horizontal align-items-center ">
+            <!-- ====================================hamburger======================================== -->
+            <div class="menu-btn position-absolute start-0 " data-bs-toggle="collapse" data-bs-target="#post-profile"
+                role="button">
+                <span class="menu-btn-burger position-absolute top-0 "></span>
+            </div>
+            <!-- ====================================hamburger======================================== -->
+
+            <form action="/profile/search_profile" method="GET" class="search_form ">
+                <span class="rounded-2  ps-3 pe-3 pt-2 pb-2  ">
+                    <input class="border-0 search_form_input " type="text" placeholder="Search" name="q">
+                    <button class="border-0 bg-transparent" type="submit"><i class="fas fa-search"></i></button>
+                </span>
+            </form>
+        </nav>
+
+        <!-- =========================collapse-nav==================== -->
+
+        <div class="post-profile  d-flex position-relative">
+            <div class="nav-vertical collapse collapse-horizontal ps-3 " id="post-profile">
+                <h4 class=" ">features</h4>
+                <ul class="">
+                    <li><a href="{% url 'post_app:add_post' %}"
+                            class="text-decoration-none d-inline-block {{ post_active }}">Add
+                            Post</a></li>
+                    <li><a href="/profile/activity" class="text-decoration-none d-inline-block">Activity </a></li>
+                </ul>
+                <h4>Users</h4>
+                <ul>
+                    <li><a href="/profile/following/{{request.user.profile.id}}"
+                            class="text-decoration-none d-inline-block">following</a></li>
+                    <li><a href="/profile/following/{{request.user.profile.id}}"
+                            class="text-decoration-none d-inline-block">followers</a></li>
+                </ul>
+                <h4>Settings</h4>
+                <ul>
+                    <li><a class="text-decoration-none d-inline-block" href="/profile/change_password">change
+                            Password</a></li>
+                    <li><a class="text-decoration-none d-inline-block" href="/reset_password"> Forgot Password</a>
+                    </li>
+                    <li><a class="text-decoration-none d-inline-block"
+                            href="/profile/profile_edit/{{request.user.profile.id}}"> Edit
+                            Profile</a>
+                    </li>
+
+                    <li><a class="text-decoration-none d-inline-block " href="/account/logout"> logout</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="vertical-content d-flex flex-column justify-content-center  container-fluid h-50 ">
+                <div class="content-options d-flex align-items-center w-100 justify-content-center ">
+                    <a class="content-option-link text-decoration-none ps-4 pe-4 {{postlist_active}}"
+                        href="/post/post_list">Post</a>
+
+                    <a class="content-option-link text-decoration-none ps-4 pe-4 {{profile_active}}"
+                        href="/profile/profile_page/{{ request.user.profile.id }}">Profile</a>
+                    <a class="content-option-link text-decoration-none ps-4 pe-4 {{Activity_active}}"
+                        href="/profile/activity">Activity</a>
+                </div>
+                <div class="extend-content container-fluid d-block   ">
+                    {% block main_content %}
+                    {% endblock %}
+
+                </div>
+            </div>
+        </div>
+
+        <!-- =========================collapse-nav==================== -->
+        <span class="position-absolute rounded-circle d-flex justify-content-center align-items-center "><i
+                class="theme-toggle far fa-moon "></i></span>
+
+    </header>
+
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
+
+    <script>
+        var OffColl = document.querySelector('.menu-btn-burger')
+        var OffNav_Vertical = document.querySelector('.nav-vertical')
+
+
+        OffColl.addEventListener('click', (e) => {
+            Offnav_Vertical.classList.toggle('.show')
+            console.log(OffNav_Vertical)
+
+        })
+    </script>
+
+
+    {% block javascript %}
+    {% endblock %}
+
+</body>
+
+</html>

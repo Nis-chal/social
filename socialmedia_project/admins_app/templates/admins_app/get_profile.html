@@ -1,0 +1,62 @@
+</nav>
+{% extends 'admins_app/admin_layout.html' %}
+{% load bootstrap %}
+{% load static %}
+{% block title %}
+<title>All Profile</title>
+<style>
+    .form-group label.control-label {
+        width: 100%;
+    }
+</style>
+{% endblock%}
+
+{% block main_content %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-10 offset-md-1">
+            <h1 class="text-center">All Profile</h1>
+
+            <div class="card p-2">
+                {% include 'message.html' %}
+                <form action="/profile/search_profile" method="GET" class="search_form ">
+                    <span class="rounded-2  ps-3 pe-3 pt-2 pb-2  ">
+                        <input class="border-0 search_form_input " type="text" placeholder="Search" name="q">
+                        <button class="border-0 bg-transparent" type="submit"><i class="fas fa-search"></i></button>
+                    </span>
+                </form>
+
+
+                <table class="table-striped">
+                    <tr>
+                        <th>profile_pic</th>
+                        <th>Username</th>
+                        <th>Email</th>
+
+                        <th>Action</th>
+
+
+                    </tr>
+                    {% for i in search_list %}
+                    <tr>
+                        {% if i.profile_pic.url %}
+                        <td> <img src="{{ i.profile_pic.url }}" width="55" class="rounded-circle" alt=""> </td>
+                        {% else %}
+                        <td><img src="{% static 'img/user_suit.jpg' %}" alt="" class="rounded-circle" width="55"></td>
+                        {% endif %}
+                        <td> {{ i.user.username }}</td>
+                        <td> {{ i.user.email }}</td>
+
+                        <td><a class="btn btn-primary btn-sm" href="/admins/delete_profile/{{i.id}}">Delete</a> &nbsp;
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}

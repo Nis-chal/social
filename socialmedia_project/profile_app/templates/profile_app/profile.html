@@ -1,0 +1,86 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<title>profile</title>
+{% endblock %}
+
+{% block main_content %}
+
+<div class="profile m-auto d-flex flex-column gap-2 pt-2 ">
+    <div class="profile-info d-flex gap-2 gap-md-5 justify-content-md-center ">
+        <img class="profile-info-image rounded-circle rounded" src="{{ profile.profile_pic.url }}" alt="">
+
+        <div class="profile-info-text">
+            <div class="profile-info-text-heading d-flex gap-2 pb-2 justify-content-between ">
+                <h1>{{ profile.user }}</h1>
+                {% if request.user == user %}
+                <a href="/profile/profile_edit/{{profile.id}}" class="text-decoration-none"><button
+                        class="btn btn-primary border text-light  text-center m-auto  d-flex  justify-content-center">edit
+                        profile</button></a>
+                {% else %}
+                {% if is_following %}
+                <form action="/profile/unfollow_user/{{profile.id}}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary" value="Unfollow">
+
+                </form>
+
+                {% else %}
+                <form action="/profile/follow_user/{{profile.id}}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary" value="follow">
+                </form>
+
+                {% endif %}
+                {% endif %}
+            </div>
+            <div class="profile-info-text-followers-count d-flex justify-content-between gap-3">
+                <h3>{{posts.all.count}} post</h3>
+                <a href="/profile/follower/{{profile.id}}" class="text-decoration-none">
+                    <h3>{{profile.followers.all.count}} followers</h3>
+                </a>
+                <a href="/profile/following/{{profile.id}}" class="text-decoration-none">
+                    <h3>{{profile.following.all.count}} following</h3>
+
+                </a>
+
+
+            </div>
+            <p>{{profile.bio}}</p>
+        </div>
+    </div>
+
+    <div class=" profile-posts d-grid justify-content-md-center pb-3">
+        {% for post in posts %}
+        {% if post.post_image %}
+        {% if post.extension == '.jpg' or post.extension == '.jpeg' or post.extension == '.png'   %}
+
+        <a href="/post/post_detail/{{post.id}}"><img src="{{ post.post_image.url}}" alt=""></a>
+        {% elif post.extension == '.mp4' or post.extension == '.ts' %}
+        <a class="d-flex justify-content-center" href="/post/post_detail/{{post.id}}">
+
+            <video class="m-auto bg-black videos w-100 h-100" paused>
+                <source src="{{ post.post_image.url }}" type="video/mp4">
+            </video>
+
+        </a>
+        {% else %}
+        <a href="{{ post.post_image.url }}" download class="text-dark">
+            <h5>{{ post.post_image }}</h5>
+        </a>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
+
+
+    </div>
+
+</div>
+
+
+
+
+
+{% endblock main_content %}

@@ -1,0 +1,48 @@
+{% extends 'navigation.html' %}
+{% load bootstrap %}
+{% load static %}
+
+{% block link %}
+<title>Post Edit</title>
+<link rel="stylesheet" href="{% static 'css/login-page.css' %}">
+{% endblock %}
+
+{% block main_content %}
+
+<div class="container-fluid">
+    <div class="row ">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="text-center">Update Post</h1>
+            <div class=" py-2 px-2">
+                <form class="form myForm container-fluid form-control myForm" action="" method="POST"
+                    enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="description">description</label>
+                        <input type="text" class="form-control" id="description" value="{{post.description}}"
+                            name="description" aria-describedby="description" placeholder="Enter file description">
+                    </div>
+                    <div class="form-group mt-4 mb-4">
+                        <label for="post_image">File</label>
+                        <input type="file" class="form-control" id="post_image" name="post_image"
+                            aria-describedby="post_image">
+                    </div>
+                    <div class="mb-3 m4 d-flex align-items-center">
+                        {% if post.post_image %}
+                        {% if post.extension == '.jpg' or post.extension == 'jpeg' or post.extension == 'png' %}
+                        current File:<img src="{{post.post_image.url}}" width="100" />
+                        {% elif post.extension == '.mp4' or post.extension == '.ts' %}
+                        current File:<video class="post-content-video  " preload="auto" autoplay width="200" controls>
+                            <source src="{{ post.post_image.url }}" type="video/mp4" class="w-100">
+                        </video>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

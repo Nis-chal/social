@@ -1,0 +1,60 @@
+{% extends 'admins_app/admin_layout.html' %}
+{% load bootstrap %}
+{% load static %}
+{% block title %}
+<title>Admins List</title>
+<style>
+    .form-group label.control-label {
+        width: 100%;
+    }
+</style>
+{% endblock%}
+
+{% block main_content %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-10 offset-md-1">
+            <h1 class="text-center">All Admins</h1>
+
+            <div class="card p-2">
+                {% include 'message.html' %}
+                <form method="GET" class="d-flex w-50 m-auto ">
+                    {{admins_filter.form | bootstrap_horizontal}}
+                    <button class="btn btn-primary btn-md mt-3 pt-0 text-center" type="submit">Search</button>
+                </form>
+
+                <table class="table-striped">
+                    <tr>
+                        <th>Image</th>
+                        <th>Admin Name</th>
+                        <th>Email</th>
+
+                        <th>Action</th>
+
+
+                    </tr>
+                    {% for i in admins %}
+                    <tr>
+                        {% if i.profile.profile_pic.url %}
+                        <td> <img src="{{ i.profile.profile_pic.url }}" width="55" class="rounded-circle" alt=""> </td>
+                        {% else %}
+                        <td><img src="{% static 'img/user_suit.jpg' %}" alt="" width="55"></td>
+                        {% endif %}
+                        <td class="text-dark"> {{ i.username }}</td>
+                        <td> {{ i.email }}</td>
+
+                        <td><a class="btn btn-primary btn-sm" href="/admins/delete_admin/{{i.id}}">Delete</a> &nbsp;
+                            <a class="btn btn-danger btn-sm" href="/admins/demote_admin/{{i.id}}"
+                                onclick="return confirm('Are you sure want to promote this admin?')">Demote to
+                                User</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}

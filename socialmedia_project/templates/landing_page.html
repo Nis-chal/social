@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <!-- fontawesome -->
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <!-- css link  -->
+
+    <link rel="stylesheet" href="{% static 'css/first-page.css' %}">
+    <link rel="icon" href="{% static 'img/logo-4-removebg-preview.png' %}">
+    <title>first-page</title>
+
+
+</head>
+
+<body>
+    <nav class="navbar bg- d-flex navigation justify-content-center ">
+        <span class="nav-logo shadow shadow-lg "><img src="{% static 'img/logo-4-removebg-preview.png' %}" class=""
+                alt=""></span>
+
+    </nav>
+
+    <section class="smile ps-1 pe-1 position-relative pb-5">
+        <div class="d-flex  smile-body m-5 flex-sm-nowrap  flex-md-nowrap  flex-lg-nowrap m-auto ">
+            <div class="  smile-heading">
+                <h1 class="   ">connect with your friends, celeb, brand with NUNU</p>
+                    <div class=" d-flex gap-4 ">
+                        <a href="{% url 'account:user_login' %}" class=" btn btn- btun rgba-btn">login</a>
+                        <a href="{% url 'account:register' %}" class="btn btun rgba-btn">Register</a>
+                    </div>
+            </div>
+
+            <div class="smile-img "><img class="w-100 " src="{% static '/img/peoplechatting-removebg-preview.png' %}"
+                    alt="">
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+
+    <section class="like-gallery d-flex flex-column flex-md-row  align-items-md-center bg-light">
+        <div
+            class="like-gallery-body d-flex justify-content-between m-auto flex-column flex-md-row align-items-md-center  gap-lg-5">
+
+
+            <div class="w-75 order-1 order-md-0 animation_gif opacity-0">
+                <img src="{% static 'img/scro;;.gif' %}" alt="" class="w-100">
+
+            </div>
+            <div class="like-gallery-text text-body m-auto">
+                <h1 class="text-center text-md-start text-capitalize ">Create post and share.
+                </h1>
+                <h4 class="text-center text-md-start ">Share images ,videos with you followers and add to your profile
+                </h4>
+
+            </div>
+
+
+    </section>
+
+    <section class="like-gallery d-flex flex-column flex-md-row  align-items-md-center bg-black">
+        <div
+            class="like-gallery-body d-flex justify-content-between m-auto flex-column flex-md-row align-items-md-center  gap-lg-5 bg-black">
+            <div class="like-gallery-text  text-body m-auto  ">
+                <h1 class="text-center text-md-start text-capitalize ">Connect people form around the world
+                </h1>
+                <h4 class="text-center text-md-start ">follow friend,family,celeb,brand and see their post</h4>
+            </div>
+
+            <div class="earth animation_gif opacity-0">
+                <img src="{% static 'img/e3.gif' %}" alt="" class="w-100">
+            </div>
+        </div>
+    </section>
+
+    <section class="like-gallery d-flex flex-column flex-md-row  align-items-md-center bg-light">
+        <div
+            class="like-gallery-body d-flex justify-content-between m-auto flex-column flex-md-row align-items-md-center  gap-lg-5">
+            <div class="earth w-75 order-1 order-md-0 animation_gif opacity-0">
+                <img src="{% static 'img/likey.gif' %}" alt="" class="w-100 ">
+            </div>
+
+            <div class="like-gallery-text text-body m-auto order-0 order-md-1">
+                <h1 class="text-center text-md-start text-capitalize ">Like and Comment post.
+                </h1>
+                <h4 class="text-center text-md-start ">You can like other user post , comment on their post</h4>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="like-gallery d-flex flex-column flex-md-row  align-items-md-center">
+        <div
+            class="like-gallery-body d-flex justify-content-between m-auto flex-column flex-md-row align-items-md-center  gap-lg-5">
+            <div class="accordion w-100" id="accordionExample">
+                <div class="accordion-item w-100">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What is NUNU ?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse  w-100" aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body bg-dark text-light">
+                            Nunu is a social media site that offers a wide variety of feature where you can
+                            upload,share,like,comment on post
+
+                            You can follow other users to see their post and like and comment on their post as much as
+                            you want, whenever you want without a single commercial – all for
+                            free.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item ">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed bg-dark text-light" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                            aria-controls="collapseTwo">
+                            Where can i download ?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse " aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body bg-dark text-light ">
+                            It only available on website currently, but in future it will available in all devices
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed bg-dark text-light" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
+                            aria-controls="collapseThree">
+                            Is there any adds ?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body bg-dark text-light">
+                            it does not have any adds. You will provided no add when you using NUNU
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="page-footer font-small special-color-dark pt-4 bg-dark">
+
+        <!-- Footer Elements -->
+        <div class="container">
+
+            <!-- Social buttons -->
+            <ul class="list-unstyled list-inline text-center ">
+                <li class="list-inline-item">
+                    <a class="btn-floating btn-fb mx-1">
+                        <i class="fab fa-facebook-f text-light"> </i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="btn-floating btn-tw mx-1">
+                        <i class="fab fa-twitter text-light"> </i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="btn-floating btn-gplus mx-1">
+                        <i class="fab fa-google-plus-g text-light"> </i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="btn-floating btn-li mx-1">
+                        <i class="fab fa-linkedin-in text-light"> </i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="btn-floating btn-dribbble mx-1">
+                        <i class="fab fa-dribbble text-light"> </i>
+                    </a>
+                </li>
+            </ul>
+            <!-- Social buttons -->
+
+        </div>
+        <!-- Footer Elements -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3 text-light">© 2020 Copyright:
+            <a href="https://mdbootstrap.com/"> NUNU.com</a>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+
+    <section class="loader-animation " id="loader-animation">
+        <img src="{% static 'img/theloader.gif' %}" alt="">
+
+    </section>
+
+
+
+
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- =================================scroll-magic================================== -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
+
+
+    <!-- ===================================vanilla-tilt.js============================== -->
+    <script src="{% static 'js/vanilla-tilt.babel.min.js' %}"></script>
+
+    <script src="{% static 'js/play.js' %}"></script>
+
+
+    <script>
+        var controller = new ScrollMagic.Controller();
+
+        $('.animation_gif').each(function () {
+            var OurScene = new ScrollMagic.Scene({
+
+                    triggerElement: this,
+                    triggerHook: 'onCenter',
+                })
+
+                .setClassToggle(this, 'fade-in')
+
+                .addTo(controller);
+
+
+
+
+
+        })
+    </script>
+</body>
+
+</html>

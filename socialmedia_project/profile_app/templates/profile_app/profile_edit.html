@@ -1,0 +1,50 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% load bootstrap %}
+{% block link %}
+<style>
+    .form-group label.control-label {
+        width: 100%;
+    }
+
+    .container-fluid label {
+        color: var(--inactive-color);
+        padding: 10px 0;
+    }
+
+
+
+
+    .form-control {
+        background-color: var(--theme-bg-color);
+
+        outline: none;
+        border: none;
+
+    }
+
+    h3 {
+        color: var(--theme-color);
+    }
+</style>
+{% endblock %}
+{% block main_content %}
+<div class="container-fluid">
+    <div class=" w-75 m-auto form-control p-5  ">
+
+        <h3 class="text-center ">Update Profile</h3>
+
+        <form action="/profile/profile_edit/{{user_profile.id}}" enctype="multipart/form-data" method="POST"
+            class=" container-fluid form-control myForm">
+            {% csrf_token %}
+            {{ profile_form | bootstrap_horizontal }}
+
+
+            <button type="submit" class="text-center btn btn-primary mt-3 "> submit</button>
+        </form>
+    </div>
+
+</div>
+
+
+{% endblock %}

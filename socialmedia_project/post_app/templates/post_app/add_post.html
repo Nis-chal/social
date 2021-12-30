@@ -1,0 +1,45 @@
+{% extends 'navigation.html' %}
+{% load bootstrap %}
+{% block link %}
+<title>NUNU Post Upload</title>
+<style>
+    .form-group label.control-label {
+        width: 100%;
+    }
+
+    .container-fluid label {
+        color: var(--inactive-color);
+        padding: 10px 0;
+    }
+
+
+
+
+    .form-control {
+        background-color: var(--theme-bg-color);
+
+        outline: none;
+        border: none;
+
+    }
+
+
+
+    h3 {
+        color: var(--theme-color);
+    }
+</style>
+
+{% endblock %}
+{% block main_content %}
+
+<div class="container-fluid  d-flex justify-content-center  ">
+    <div class=" container  ">
+        <form action="" id="form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ post_form | bootstrap_horizontal }}
+            <button type="submit" class="mt-2 btn-primary bun" name="post_submit">post</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

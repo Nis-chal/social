@@ -1,0 +1,171 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% load bootstrap %}
+
+{% block link %}
+<title>Post List</title>
+<link rel="stylesheet" href="{% static 'css/post-list.css' %}">
+{% endblock %}
+{% block main_content %}
+
+
+
+
+{% for post in post_list %}
+<div class="post-content p-4  d-flex flex-column gap-0 ">
+    <div class="post-content-row d-flex justify-content-between">
+        <div class="post-content-row-info d-flex align-items-center   gap-2 pb-2">
+            <a href="/profile/profile_page/{{post.author.profile.id}}"><img
+                    src="{{ post.author.profile.profile_pic.url }}" class="post-content-rounded-pic rounded-circle "
+                    alt=""></a>
+            <h4><a href="/profile/profile_page/{{post.author.profile.id}}" class=" text-decoration-none "
+                    class="pt-0">{{ post.author }}</a></h4>
+        </div>
+        {% if request.user == post.author %}
+        <div class="dropdown  pt-1 ">
+            <div>
+                <a href="#" class="text=decoration-none"><i class="fas fa-ellipsis-h" data-bs-toggle="collapse"
+                        data-bs-target='#dropdown-menu'></i></a>
+            </div>
+            <ul class="post-content-row-menu collapse position-absolute p-0 ps-2 rounded-2" id="dropdown-menu">
+                <li><a class="dropdown-item d-flex gap-5 align-items-center" href="/post/post_edit/{{post.id}}"><i
+                            class="fas fa-pencil-alt"></i> Edit
+                        post</a></li>
+                <li><a class="dropdown-item d-flex gap-5 align-items-center" href="/post/post_delete/{{post.id}}"><i
+                            class="fas fa-trash"></i>Post
+                        Delete</a></li>
+                <li><a class="dropdown-item d-flex gap-5 align-items-center link_visited"
+                        href="{{ post.post_image.url }}" download="{{ post.post_image.url }}"><i
+                            class="far fa-arrow-alt-circle-down"></i>Download</a>
+                </li>
+
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+    {% if post.post_image %}
+    {% if post.extension == '.jpg' or post.extension == '.jpeg' or post.extension == '.png'   %}
+    <div class="post-content-post "><a href="/post/post_detail/{{post.id}}"><img src="{{ post.post_image.url }}" alt=""
+                class="w-100"></a>
+    </div>
+    {% elif post.extension == '.mp4' or post.extension == '.ts' %}
+    <div class="d-flex justify-content-center">
+
+        <video class="m-auto bg-black videos" width="310" height='400' controls>
+            <source src="{{ post.post_image.url }}" type="video/mp4">
+        </video>
+
+    </div>
+    {% else %}
+    <a href="{{ post.post_image.url }}" download class="text-dark">
+        <h5>{{ post.post_image }}</h5>
+    </a>
+    {% endif %}
+    {% endif %}
+
+    <div class=" post-content-comment d-flex mt-2">
+        {% if request.user in post.likes.all %}
+
+        <form action="/post/{{post.id}}/like" method="POST">
+            {% csrf_token %}
+
+            <button type=" submit" data-new="{{post.id}}" id="new"><i class="fas fa-heart is_pink"
+                    data-new="{{post.id}}"></i></button>
+        </form>
+        {% else %}
+        <form action="/post/{{post.id}}/like" method="POST">
+            {% csrf_token %}
+
+            <button type=" submit" class="fas-heart" data-new="{{post.id}}"><i class="fas fa-heart"
+                    data-new="{{post.id}}"></i></button>
+        </form>
+        {% endif %}
+
+        <a href="/post/post_detail/{{post.id}}"><button type="submit"><i class="fas fa-comment"></i></button></a>
+
+
+
+    </div>
+    <p class="like-count">{{post.likes.all.count}} likes</p>
+    <p>{{post.description}}</p>
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+{% endblock %}
+
+
+
+{% block javascript %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<script>
+    var newer = document.getElementById('new')
+    var drop_field = document.querySelectorAll('.post-content')
+    const threeDot = document.querySelectorAll('.fa-ellipsis-h')
+    var dropdown_menu = document.querySelectorAll('.post-content-row-menu')
+    var fa_heart = document.querySelectorAll('.fa-heart')
+    var like_count = document.querySelectorAll('.like-count')
+
+
+
+    //  on click a dropdown menu is shown
+    for (var i = 0; i < threeDot.length; i++) {
+        threeDot[i].setAttribute("data-bs-target", `#dropdown-menu${i}`)
+        threeDot[i].id = `dropdown-me${i}`
+        for (var f in dropdown_menu) {
+            dropdown_menu[f].id = `dropdown-menu${f}`
+        }
+        for (var n in like_count) {
+            like_count[n].id = `like-count${n}`
+        }
+    }
+    // for each like button a ajax call is made 
+    fa_heart.forEach((item, index, arr) => {
+        arr[index].addEventListener('click', (e) => {
+            let target = e.target
+            event.preventDefault();
+            item.classList.toggle('is_pink')
+            var postId = target.getAttribute('data-new')
+            $.ajax({
+                type: "POST",
+                url: "/post/" + postId + "/like",
+
+                enctype: 'multipart/form-data',
+                data: {
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+
+                // headers: {
+                // 'X-CSRFToken': token
+                // },
+
+                success: function (data) {
+                    if (data.is_like) {
+                        var liked = document.getElementById(`like-count${index}`)
+
+                        liked.innerHTML = data.like_count + " likes"
+
+                    } else {
+                        var liked = document.getElementById(`like-count${index}`)
+                        liked.innerHTML = data.like_count + " likes"
+
+                    }
+                }
+
+            })
+        })
+    })
+</script>
+
+<script src="{% static 'js/scrollmagic.js' %}"></script>
+{% endblock javascript %}

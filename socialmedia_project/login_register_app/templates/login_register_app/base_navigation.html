@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    {% block title %}
+    {% endblock %}
+
+    <link rel="icon" href="{% static 'img/logo-4-removebg-preview.png' %}">
+    <link rel="stylesheet" href="{% static 'css/login-page.css' %}">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark dark-theme  shadow shadow-sm m-0 p-0">
+        <div class="container-fluid ">
+            <a class="navbar-brand  " href="/"><img src="{% static 'img/logo-4-removebg-preview.png' %}" class=""
+                    alt=""></a>
+            <button class=" navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-md-end" id="navbarNav">
+                <ul class="navbar-nav d-flex justify-content-between gap-md-4">
+
+
+
+
+                    {% if user.is_authenticated %}
+                    <li><a class='nav-link ' href="/profile/profile_page/{{request.user.profile.id}}">profile</a>
+                    <li><a class='nav-link ' href="/account/logout">logout</a></li>
+
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {{ active_register }}" href="{% url 'account:register' %}">Sign Up</a>
+                    </li>
+                    <li><a class='nav-link {{ active_login }}' href="{% url 'account:user_login' %}">Login</a></li>
+
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid login-register-page m-0 p-0 ">
+        {% block body_block %}
+        {% endblock %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</body>
+
+</html>

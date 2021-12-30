@@ -1,0 +1,32 @@
+{% extends 'navigation.html' %}
+{% load bootstrap %}
+{% load static %}
+
+{% block link %}
+<title>NUNU Edit Comment</title>
+<link rel="stylesheet" href="{% static 'css/login-page.css' %}">
+{% endblock %}
+{% if request.user == comment.author %}
+{% block main_content %}
+{% include 'message.html' %}
+<div class="container-fluid">
+    <div class="row ">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="text-center">update File</h1>
+            <div class=" py-2 px-2">
+                <form class="form myForm container-fluid form-control myForm" action="" method="POST"
+                    enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ comment_form | bootstrap_horizontal }}
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% else %}
+<h1>404</h1>
+{% endif %}

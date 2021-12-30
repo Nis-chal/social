@@ -1,0 +1,36 @@
+{% extends 'login_register_app/base_navigation.html' %}
+{% load static %}
+{% load bootstrap %}
+{% block title %}
+<title>NUNU Sign Up</title>
+{% endblock %}
+
+{% block body_block %}
+<div class="container-fluid">
+    <div class="jumbotron w-md-75 m-auto form-control p-5  ">
+        {% include 'message.html' %}
+        <h3 class="text-center ">Register Here</h3>
+
+        <form action="" enctype="multipart/form-data" method="post" class=" jumbotron form-control myForm">
+            {% csrf_token %}
+            {{ user_form | bootstrap_horizontal }}
+            {{ profile_form | bootstrap_horizontal }}
+
+            <button type="submit"
+                class="btn btn-transparent border text-light w-75 text-center m-auto mt-4 d-flex  justify-content-center ">
+                Sign Up</button>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    var login_form = document.getElementsByTagName('input')
+    login_form[1].classList.add('username')
+    login_form[2].classList.add('email')
+    login_form[3].classList.add('password')
+    login_form[4].classList.add('portfolio_site')
+    login_form[5].classList.add('profile_pic')
+    login_form[6].classList.add('bio')
+</script>
+{% endblock %}

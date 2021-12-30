@@ -1,0 +1,77 @@
+{% extends 'navigation.html' %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/following.css' %}">
+{% endblock %}
+{% block main_content %}
+<div class=" following-content">
+    {% for follower in followers %}
+    <div class="user-info-pic remove-follower d-flex justify-content-between  m-auto mt-2 collapse">
+
+        <div class="d-flex w-50 justify-content-between align-items-center">
+            <img class="small-pic rounded-circle " src=" {{follower.profile.profile_pic.url}}" alt="">
+            <h4>{{follower.profile.name}}</h4>
+        </div>
+
+        {% if request.user == profile.user %}
+        <form action="/basic_app/toggle_follower/{{following.profile.id}}" method="POST">
+            {% csrf_token %}
+
+            <button class="btn btn-primary unfollow Remove" data-new="{{follower.profile.id}}">Remove</button>
+        </form>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+
+</div>
+
+<script>
+    var unfollow = document.querySelectorAll('.unfollow')
+    var remove_follower = document.querySelectorAll('.remove-follower')
+    var Remove = document.querySelectorAll('.Remove')
+
+
+
+    for (var i = 0; i < remove_follower.length; i++) {
+        Remove[i].setAttribute("data-bs-dismiss", `dropdown-menu${i}`)
+
+        remove_follower[i].classList.add = `dropdown-menu${i}`
+
+
+
+    }
+    Remove.forEach((item, index, arr) => {
+        arr[index].addEventListener('click', (e) => {
+            event.preventDefault();
+            let target = e.target
+            var following_id = target.getAttribute('data-new')
+            remove_follower[index].classList.toggle('disappear')
+
+
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/profile/remove_follower/" + following_id,
+
+                enctype: 'multipart/form-data',
+                data: {
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+
+                success: function (data) {
+
+
+                    console.log(data)
+
+
+                }
+            })
+        })
+
+    })
+</script>
+{% endblock %}
